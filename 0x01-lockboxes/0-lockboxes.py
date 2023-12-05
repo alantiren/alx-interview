@@ -1,31 +1,20 @@
 #!/usr/bin/python3
+'''A module for working with lockboxes.
+'''
 
 def canUnlockAll(boxes):
-    # Set to keep track of opened boxes
-    opened_boxes = {0}
+    '''Checks if all the boxes in a list of boxes containing the keys
+    (indices) to other boxes can be unlocked given that the first
+    box is unlocked.
+    '''
+    n = len(boxes)
+    seen_boxes = {0}
+    unseen_boxes = set(boxes[0]) - {0}
 
-    # List to store keys to be checked
-    keys_to_check = [0]
+    while unseen_boxes:
+        boxIdx = unseen_boxes.pop()
+        if 0 <= boxIdx < n and boxIdx not in seen_boxes:
+            unseen_boxes.update(boxes[boxIdx])
+            seen_boxes.add(boxIdx)
 
-    while keys_to_check:
-        current_box = keys_to_check.pop()
-
-        # Check keys in the current box
-        for key in boxes[current_box]:
-            if key not in opened_boxes:
-                opened_boxes.add(key)
-                keys_to_check.append(key)
-
-    # Check if all boxes are opened
-    return len(opened_boxes) == len(boxes)
-
-# Example usage for testing
-if __name__ == "__main__":
-    boxes1 = [[1], [2], [3], [4], []]
-    print(canUnlockAll(boxes1))  # Output: True
-
-    boxes2 = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-    print(canUnlockAll(boxes2))  # Output: True
-
-    boxes3 = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-    print(canUnlockAll(boxes3))  # Output: False
+    return n == len(seen_boxes)
