@@ -47,7 +47,8 @@ def print_statistics(total_file_size, status_codes_stats):
 
     Args:
         total_file_size (int): The total file size.
-        status_codes_stats (dict): A dictionary containing status codes and their counts.
+        status_codes_stats (dict): A dictionary containing status codes
+        and their counts.
     '''
     print('File size: {:d}'.format(total_file_size), flush=True)
 
@@ -63,7 +64,8 @@ def update_metrics(line, total_file_size, status_codes_stats):
     Args:
         line (str): The line of input from which to retrieve the metrics.
         total_file_size (int): The current total file size.
-        status_codes_stats (dict): A dictionary containing status codes and their counts.
+        status_codes_stats (dict): A dictionary containing status codes
+        and their counts.
 
     Returns:
         int: The new total file size.
