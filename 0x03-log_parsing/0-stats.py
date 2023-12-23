@@ -22,23 +22,18 @@ def extract_input(input_line):
         r'\s*(?P<status_code>\S+)',
         r'\s*(?P<file_size>\d+)'
     )
-    
     log_format = '{}\\-{}{}{}{}\\s*'.format(*log_patterns)
-
     match = re.fullmatch(log_format, input_line)
-
     info = {
         'status_code': 0,
         'file_size': 0,
     }
-
     if match is not None:
         status_code = match.group('status_code')
         file_size = int(match.group('file_size'))
 
         info['status_code'] = status_code
         info['file_size'] = file_size
-    
     return info
 
 
@@ -70,14 +65,12 @@ def update_metrics(line, total_file_size, status_codes_stats):
     Returns:
         int: The new total file size.
     '''
-
     line_info = extract_input(line)
     
     status_code = line_info.get('status_code', '0')
 
     if status_code in status_codes_stats.keys():
         status_codes_stats[status_code] += 1
-    
     return total_file_size + line_info['file_size']
 
 
@@ -97,7 +90,6 @@ def run():
         '405': 0,
         '500': 0,
     }
-
     try:
         while True:
             line = input()
@@ -107,13 +99,12 @@ def run():
                 total_file_size,
                 status_codes_stats,
             )
-            
             line_num += 1
-  
             if line_num % 10 == 0:
                 print_statistics(total_file_size, status_codes_stats)
     except (KeyboardInterrupt, EOFError):
         print_statistics(total_file_size, status_codes_stats)
+
 
 if __name__ == '__main__':
     run()
