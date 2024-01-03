@@ -32,10 +32,9 @@ def validUTF8(data):
             return False
 
         if n - i >= span and all(
-        (data[j] & 0b11000000) == 0b10000000 
-        for j in range(i + 1, i + span)
-    ):
-
+                (data[j] & 0b11000000) == 0b10000000 
+                for j in range(i + 1, i + span)
+        ):
             skip = span - 1
         else:
             return False
