@@ -7,7 +7,8 @@ def isWinner(x, nums):
     """Determines the winner of the prime game.
     Args:
         x (int): Number of rounds.
-        nums (list): List of integers representing the upper limits for each round.
+        nums (list): List of integers representing the upper limits
+        for each round.
     Returns:
         str or None: Name of the player who won the most rounds,
         or None if it's a tie.
